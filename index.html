@@ -20,7 +20,8 @@
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoidHVyc2ljcyIsImEiOiJjajBoN3hzZGwwMDJsMnF0YW96Y2l3OGk2In0._5BdojVYvNuR6x4fQNYZrA';
 	config = {
-		showLoop: false,
+		speed: 10,
+		showLoop: true,
 		showLiveHourOffset: 5
 	};
 
@@ -77,7 +78,7 @@
 		map.on('load', function () {
 			window.setInterval(function() {
 				map.getSource('drone').setData(getCurrentPosition());
-			}, 200);
+			}, config.speed);
 
 			map.addSource('drone', { type: 'geojson', data: getCurrentPosition() });
 			map.addLayer({
@@ -106,7 +107,7 @@
 		$.ajax({
 			type: "GET",
 //			url: './data/2018-02-13-vehicle-states.csv',
- 		       url: './data/2018-03-07-vehicle-states.csv',
+		       url: './data/2018-03-07-vehicle-states.csv',
 			dataType: "text",
 			success: function(csvData) {
 				parseVehicleData(csvData);

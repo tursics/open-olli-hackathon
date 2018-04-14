@@ -1,0 +1,22 @@
+{
+  "name": "open-olli-hackathon",
+  "version": "1.0.0",
+  "description": "Hackathon mit Daten des autonomen Shuttles des InnoZ / EUREF-Campus",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://tursics@github.com/tursics/open-olli-hackathon.git"
+  },
+  "author": "Thomas Tursics",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tursics/open-olli-hackathon/issues"
+  },
+  "homepage": "https://github.com/tursics/open-olli-hackathon#readme",
+  "dependencies": {
+    "fast-csv": "^2.4.1"
+  }
+}

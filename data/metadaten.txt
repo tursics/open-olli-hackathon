@@ -1,0 +1,13 @@
+Nutzungsbestimmung/Lizenz
+Creative Commons kein Copyright wenn möglich (Public domain) ("no Copyright") 1.0 international
+
+id → integer (Serielle nummer)
+vehicle_id → string (Systemname des shuttles)
+latitude → numeric (Hochwert, WGS 84)
+longitude → numeric (Rechtswert, WGS 84)
+theta → numeric (Radiant, 0 = Osten)
+speed → numeric (Geschwindigkeit in m/s)
+battery → integer (Batteriestand [0-100%])
+doors → boolean (false = Tür zu, true = Tür offen) 
+last_seen → timestamp (Zeitstempel lokaler Zeit)
+created_at → timestamp (Zeitstempel UTC) 

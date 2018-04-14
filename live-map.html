@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Add live realtime data</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+	<script src='js/csv2geojson.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoidHVyc2ljcyIsImEiOiJjajBoN3hzZGwwMDJsMnF0YW96Y2l3OGk2In0._5BdojVYvNuR6x4fQNYZrA';
+	config = {
+		showLoop: false,
+		showLiveHourOffset: 5
+	};
+
+	var map = new mapboxgl.Map({
+		container: 'map',
+    	style: 'mapbox://styles/mapbox/streets-v9',
+		center: [ 13.3572122319, 52.4821629317],
+		zoom: 17
+	}),
+		vehicleData = [],
+		vehiclePos = 0;
+
+	function getCurrentPosition() {
+		if (config.showLoop) {
+			++vehiclePos;
+			if(vehicleData.length < vehiclePos) {
+				vehiclePos = 0;
+			}
+		} else {
+			vehiclePos = 0;
+			for(i = 0; i < vehicleData.features.length; ++i) {
+				bus = new Date(vehicleData.features[i].properties.last_seen.substring(0, vehicleData.features[0].properties.last_seen.indexOf('+')));
+				now = new Date();
+				if (bus.getHours() < (now.getHours() - config.showLiveHourOffset)) {
+					vehiclePos = i;
+				} else if (bus.getHours() === (now.getHours() - config.showLiveHourOffset)) {
+					if (bus.getMinutes() < now.getMinutes()) {
+						vehiclePos = i;
+					} else if (bus.getMinutes() === now.getMinutes()) {
+						if (bus.getSeconds() < now.getSeconds()) {
+							vehiclePos = i;
+						} else {
+							break;
+						}
+					} else {
+						break;
+					}
+				} else {
+					break;
+				}
+			}
+//			console.log(vehicleData.features[vehiclePos].properties.last_seen);
+		}
+
+		return {
+			"type": "FeatureCollection",
+			"features": [
+				vehicleData.features[vehiclePos]
+			]
+		};
+	}
+
+	function initMap() {
+		map.on('load', function () {
+			window.setInterval(function() {
+				map.getSource('drone').setData(getCurrentPosition());
+			}, 200);
+
+			map.addSource('drone', { type: 'geojson', data: getCurrentPosition() });
+			map.addLayer({
+				"id": "drone",
+				"type": "symbol",
+				"source": "drone",
+				"layout": {
+					"icon-image": "rocket-15"
+				}
+			});
+		});
+	}
+
+	function parseVehicleData(csvData) {
+		csv2geojson.csv2geojson(csvData, {
+			latfield: 'latitude',
+			lonfield: 'longitude',
+			delimiter: ';'
+		}, function(err, data) {
+			vehicleData = data;
+			initMap();
+		});
+	}
+
+	$(document).ready(function() {
+		$.ajax({
+			type: "GET",
+//			url: './data/2018-02-13-vehicle-states.csv',
+ 		       url: './data/2018-03-07-vehicle-states.csv',
+			dataType: "text",
+			success: function(csvData) {
+				parseVehicleData(csvData);
+			}
+		 });
+	});
+
+	</script>
+
+</body>
+</html>

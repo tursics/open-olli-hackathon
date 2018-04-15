@@ -86,7 +86,7 @@
 				"type": "symbol",
 				"source": "drone",
 				"layout": {
-					"icon-image": "rocket-15"
+					"icon-image": "bus-15"
 				}
 			});
 		});
@@ -106,8 +106,8 @@
 	$(document).ready(function() {
 		$.ajax({
 			type: "GET",
-//			url: './data/2018-02-13-vehicle-states.csv',
-		       url: './data/2018-03-07-vehicle-states.csv',
+			url: './data/2018-02-14-vehicle-routes.csv',
+//		    url: './data/2018-03-07-vehicle-routes.csv',
 			dataType: "text",
 			success: function(csvData) {
 				parseVehicleData(csvData);

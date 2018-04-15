@@ -63,15 +63,14 @@ function sortVehicleStatesFiles(path) {
 					content.push(data);
 				})
 				.on("end", function () {
-					console.log(content.length);
 					content.sort(function(a, b) {
 						return a.id - b.id;
 					});
 
 					file = file.replace('states', 'routes');
-		//			fs.appendFileSync(path + file, exportHeader(content[0]));
+					fs.writeFileSync(path + file, exportHeader(content[0]));
 					for (i = 0; i < content.length; ++i) {
-		//				fs.appendFileSync(path + file, exportData(content[i]));
+						fs.appendFileSync(path + file, exportData(content[i]));
 					}
 				});
 		}

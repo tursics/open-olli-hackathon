@@ -34,12 +34,19 @@
 	<link rel="stylesheet" href="index.css" />
 	<link rel="stylesheet" href="lib/leaflet.awesome-markers-2.0.2/leaflet.awesome-markers.css">
 
-	<script src="lib/leaflet-0.7.3/leaflet.js"></script>
-	<script src="lib/jquery.mobile-1.4.2/jquery-1.11.1.min.js"></script>
+<!--	<script src="lib/leaflet-0.7.3/leaflet.js"></script> -->
+<!--	<script src="lib/jquery.mobile-1.4.2/jquery-1.11.1.min.js"></script> -->
+<!--	<script src="index.js"></script> -->
+<!--	<script src="lib/jquery.mobile-1.4.2/jquery.mobile-1.4.2.min.js"></script> -->
+<!--	<script src="lib/jquery.autocomplete-1.2.25/jquery.autocomplete.min.js"></script> -->
+<!--	<script src="lib/leaflet.awesome-markers-2.0.2/leaflet.awesome-markers.min.js"></script> -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+	<script src='js/csv2geojson.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
+
 	<script src="index.js"></script>
-	<script src="lib/jquery.mobile-1.4.2/jquery.mobile-1.4.2.min.js"></script>
-	<script src="lib/jquery.autocomplete-1.2.25/jquery.autocomplete.min.js"></script>
-	<script src="lib/leaflet.awesome-markers-2.0.2/leaflet.awesome-markers.min.js"></script>
 
 	<link rel="apple-touch-icon" sizes="57x57" href="/assets/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="/assets/apple-icon-60x60.png">
@@ -61,6 +68,7 @@
 <body>
 	<div data-role="page" id="pageMap">
 		<div role="main" class="ui-content" id="mapContainer"></div>
+		<div id='mapInfoContainer' class='mapInfo-container'></div>
 		<div id="headerBox" class="big">
 			<div class="author">
 				<a href="http://codefor.berlin/" target="_blank" title="Code for Berlin"><img src="/assets/logocfb.png"></a><span> +</span>
@@ -161,58 +169,32 @@
 		<div id="pageStory">
 			<div class="source">Quelle: InnoZ / EUREF-Campus. Stand: 04.05.2018 (<a href="https://hackathon.innoz.de/data" target="_blank">Rohdaten</a>)</div>
 			<div>
-				Die Toiletten stinken, Wasser tropft von der Decke, <a href="http://wunschzettel.stiftungbildung.com/primo-levi-gymnasium/" target="_blank">der Putz bröckelt von der Wand</a>.
-				Vielen Schulgebäuden sieht man ihren schlechten Zustand bereits von außen an.
-				Bereits vor Jahren kam die Frage auf, wie teuer es wäre, die Schäden bei den Schulen zu beheben.
-				Die erste Auswertung vor vier Jahren bezifferte den Sanierungsstau für alle öffentlichen Schulen in Berlin auf 863 Millionen Euro.
+				Die Zukunft der Mobilität ist schon da.
+				Auf dem EUREF-Campus testen die BVG und Deutsche Bahn schon seit ein paar Monaten einen autonom fahrenden Bus.
 			</div>
-			<div>
-				Zwei Jahre später wurde die Zahl auf <a href="http://www.tagesspiegel.de/berlin/schule/erbaermlicher-zustand-schulsanierung-in-berlin-kostet-zwei-milliarden/10806016.html" target="_blank">1,9 Milliarden Euro</a> erhöht.
-				Und in diesem Sommer wurde die neueste Zahl präsentiert:
-				<a href="http://www.berliner-zeitung.de/berlin/bezirke--sanierung-der-schulen-kostet-4-9-milliarden-euro-24322136" target="_blank">4,9 Milliarden Euro</a> braucht Berlin für die Sanierung seiner Schulen.
-				Beim aktuellen Gebäudescan wurde - im Gegensatz zu den vorherigen Erhebungen - ein einheitlicher Fragebogen von den Bezirken ausgefüllt.
-				Mit diesem soll es nun erstmals möglich sein, berlinweit vergleichbare Zahlen für die Schulen zu bekommen.
+			<div>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </div>
+			<div>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. </div>
+			<div class="embedImage">
+				<img src="assets/OpenOlli_Hackathon_hackathon_serif.png" alt="Open Olli">
+				<div>Open Olli</div>
 			</div>
-			<div class="printerLabel">
-				<div class="leaflet-popup-content-wrapper scale150 rotateMin5"><div class="leaflet-popup-content"><div class="top red">Sanierungsstau</div><div class="middle">€4,9 Mrd.</div><div class="bottom red">bei Schulen</div></div></div>
-				<div style="clear: both;"></div>
+			<div>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. </div>
+			<div>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </div>
+			<div>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. </div>
+			<div class="embedImage">
+				<img src="assets/Bildschirmfoto 2018-05-04 um 15.02.45.png" alt="Voronoi Karte">
+				<div>Open Olli</div>
 			</div>
-			<div>
-				Der Senatsverwaltung für Bildung, Jugend und Wissenschaft liegt für jedes Schul- und Sportgebäude in Berlin detailliertes Zahlenmaterial über dessen baulichen Zustand vor.
-				Aktuell werden die Daten zusammengeführt und so aufbereitet, dass sie auch zwischen den Bezirken vergleichbar sind.
-				Es ist davon auszugehen, dass bei der Präsentation der endgültigen Zahlen noch Unterschiede auftreten werden.
+			<div>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. </div>
+			<div>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </div>
+			<div>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. </div>
+			<div class="embedImage">
+				<img src="assets/ehr-trinkwassernotbrunnen.png" alt="Voronoi Karte">
+				<div>Open Olli</div>
 			</div>
-			<div class="embedTable">
-				<h3>Der Sanierungsstau pro Bezirk</h3>
-				<table>
-					<tr><th>Bezirk</th><th>Kosten</th></tr>
-					<tr><td>Tempelhof-Schöneberg</td><td>557&nbsp;Mio.&nbsp;Euro</td></tr>
-					<tr><td>Steglitz-Zehlendorf</td><td>457&nbsp;Mio.&nbsp;Euro</td></tr>
-					<tr><td>Neukölln</td><td>452&nbsp;Mio.&nbsp;Euro</td></tr>
-					<tr><td>Pankow</td><td>427&nbsp;Mio.&nbsp;Euro</td></tr>
-					<tr><td>Reinickendorf</td><td>409&nbsp;Mio.&nbsp;Euro</td></tr>
-					<tr><td>Charlottenburg-Wilmersdorf</td><td>368&nbsp;Mio.&nbsp;Euro</td></tr>
-					<tr><td>Friedrichshain-Kreuzberg</td><td>357&nbsp;Mio.&nbsp;Euro</td></tr>
-					<tr><td>berufliche Schulen</td><td>336&nbsp;Mio.&nbsp;Euro</td></tr>
-					<tr><td>Mitte</td><td>334&nbsp;Mio.&nbsp;Euro</td></tr>
-					<tr><td>Lichtenberg</td><td>328&nbsp;Mio.&nbsp;Euro</td></tr>
-					<tr><td>Spandau</td><td>306&nbsp;Mio.&nbsp;Euro</td></tr>
-					<tr><td>Marzahn-Hellersdorf</td><td>298&nbsp;Mio.&nbsp;Euro</td></tr>
-					<tr><td>Treptow-Köpenick</td><td>285&nbsp;Mio.&nbsp;Euro</td></tr>
-				</table>
-				<div>Für den baulichen Unterhalt der Schulen sind die einzelnen Bezirke zuständig, bei Berufsschulen hingegen das Land Berlin.</div>
-			</div>
-			<div>
-				Wie setzen sich die etwa 5 Milliarden Euro zusammen?
-				Anhand der vorläufigen Zahlen aus Lichtenberg (<a href="#pageMap=1100000">auf der Karte ansehen</a>) wird dies deutlich:
-				In diesem Bezirk wird gut ein Drittel (117 Millionen Euro) zur Sanierung der Räume in den Schulgebäuden benötigt;
-				etwa ein Viertel der Kosten (79 Millionen Euro) fällt für die Sporthallen an.
-			</div>
-			<div>
-				Etwa 15 Prozent (50 Millionen Euro) müssen in die Schulhöfe und Sportanlagen gesteckt werden, weitere 11 Prozent (38 Millionen Euro) in die Barrierefreiheit.
-				Damit die Inklusion, also die gemeinsame Beschulung aller Schüler mit und ohne Behinderung, klappt, müssen etwa 100 Rampen neu- und etwa ebenso viele Eingangsbereiche umgebaut werden.
-				Dazu kommen diverse Aufzüge und 313 barrierefrei gestaltete Toiletten.
-			</div>
+			<div>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. </div>
+			<div>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </div>
+			<div>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. </div>
 			<div class="embedPrinterLabel">
 				<h3>Die teuersten Lichtenberger...</h3>
 				<div class="buttons">

@@ -3,7 +3,9 @@
 /*jslint browser: true*/
 /*global $,L*/
 
-var map = null;
+var map = null,
+	mapInfoContainer = null,
+	config = null;
 var layerPopup = null;
 var layerGroup = null;
 //var budget = null;
@@ -721,38 +723,175 @@ function initSocialMedia() {
 }
 
 // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
-function initMap(elementName, lat, lng, zoom) {
-	'use strict';
+function getCurrentPosition() {
+	if ('loop' === config.run) {
+		++vehiclePos;
+		if(vehicleData.features.length < vehiclePos) {
+			vehiclePos = 0;
+		}
+	} else if ('live' === config.run) {
+		vehiclePos = 0;
+		for(i = 0; i < vehicleData.features.length; ++i) {
+			bus = new Date(vehicleData.features[i].properties.last_seen.substring(0, vehicleData.features[0].properties.last_seen.indexOf('+')));
+			now = new Date();
 
-	if (null === map) {
-		var mapboxToken = 'pk.eyJ1IjoidHVyc2ljcyIsImEiOiI1UWlEY3RNIn0.U9sg8F_23xWXLn4QdfZeqg',
-			mapboxTiles = L.tileLayer('https://{s}.tiles.mapbox.com/v4/tursics.l7ad5ee8/{z}/{x}/{y}.png?access_token=' + mapboxToken, {
-				attribution: '<a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap-Mitwirkende</a>, <a href="https://www.mapbox.com" target="_blank">Mapbox</a>'
-			}),
-			dataUrl = 'data/gebaeudescan.json';
+			if (bus.getHours() < (now.getHours() - config.showLiveHourOffset)) {
+				vehiclePos = i;
+			} else if (bus.getHours() === (now.getHours() - config.showLiveHourOffset)) {
+				if (bus.getMinutes() < now.getMinutes()) {
+					vehiclePos = i;
+				} else if (bus.getMinutes() === now.getMinutes()) {
+					if (bus.getSeconds() < now.getSeconds()) {
+						vehiclePos = i;
+					} else {
+						break;
+					}
+				} else {
+					break;
+				}
+			} else {
+				break;
+			}
+		}
+//			console.log(vehicleData.features[vehiclePos].properties.last_seen);
+	} else if ('seconds' === config.run) {
+		if (0 === config.runClock) {
+			config.runClockStart = new Date(vehicleData.features[0].properties.last_seen.split(' ')[0] + ' 09:33').getTime() / 1000;
+			config.runClockStop = new Date(vehicleData.features[0].properties.last_seen.split(' ')[0] + ' 09:38').getTime() / 1000;
+			config.runClock = config.runClockStart;
+			config.showLiveHourOffset = 0;
+		}
 
-		map = L.map(elementName, {zoomControl: false, scrollWheelZoom: false})
-			.addLayer(mapboxTiles)
-			.setView([lat, lng], zoom);
+		config.runClock += 1;
 
-		map.addControl(L.control.zoom({ position: 'bottomright'}));
-		map.once('focus', mapAction);
+		if (config.runClock > config.runClockStop) {
+			config.runClock = config.runClockStart;
+		}
 
-		$.getJSON(dataUrl, function (data) {
-			data = enrichMissingData(data);
-			createStatistics(data);
-			createMarker(data);
-			initSearchBox(data);
-			selectPrinterLabel('school');
-			initSocialMedia();
+		vehiclePos = 0;
+		for(i = 0; i < vehicleData.features.length; ++i) {
+			bus = new Date(vehicleData.features[i].properties.last_seen.substring(0, vehicleData.features[0].properties.last_seen.indexOf('+')));
+//				now = new Date();
+			now = new Date(config.runClock * 1000);
 
-//			var budgetUrl = 'data/gebaeudesanierungen.json';
-//			$.getJSON(budgetUrl, function (budgetData) {
-//				budget = budgetData;
-//			});
-		});
+			if (bus.getHours() < (now.getHours() - config.showLiveHourOffset)) {
+				vehiclePos = i;
+			} else if (bus.getHours() === (now.getHours() - config.showLiveHourOffset)) {
+				if (bus.getMinutes() < now.getMinutes()) {
+					vehiclePos = i;
+				} else if (bus.getMinutes() === now.getMinutes()) {
+					if (bus.getSeconds() < now.getSeconds()) {
+						vehiclePos = i;
+					} else {
+						break;
+					}
+				} else {
+					break;
+				}
+			} else {
+				break;
+			}
+		}
+//			console.log(vehicleData.features[vehiclePos].properties.last_seen);
 	}
+
+	var clock = '',
+		bus = new Date(vehicleData.features[vehiclePos].properties.last_seen.substring(0, vehicleData.features[0].properties.last_seen.indexOf('+')));
+
+	if ('seconds' === config.run) {
+		bus = new Date(config.runClock * 1000);
+	}
+
+	clock = '';
+	clock += ('0' + bus.getDate()).substr(-2) + '.';
+	clock += ('0' + (bus.getMonth() + 1)).substr(-2) + '.';
+	clock += ('000' + bus.getFullYear()).substr(-4);
+	clock += '<br>';
+	clock += ('0' + bus.getHours()).substr(-2) + ':';
+	clock += ('0' + bus.getMinutes()).substr(-2) + ':';
+	clock += ('0' + bus.getSeconds()).substr(-2);
+
+	initInfoslot(clock);
+
+	return {
+		"type": "FeatureCollection",
+		"features": [
+			vehicleData.features[vehiclePos]
+		]
+	};
+}
+
+// -----------------------------------------------------------------------------
+
+function initInfoslot(text) {
+	mapInfoContainer.innerHTML = '<div>' + text + '</div>';
+}
+
+// -----------------------------------------------------------------------------
+
+function initMap() {
+	map.on('load', function () {
+		window.setInterval(function() {
+			map.getSource('drone').setData(getCurrentPosition());
+		}, config.speed);
+
+		map.addSource('drone', { type: 'geojson', data: getCurrentPosition() });
+		map.addLayer({
+			"id": "drone",
+			"type": "symbol",
+			"source": "drone",
+			"layout": {
+				"icon-image": "bus-15"
+			}
+		});
+	});
+}
+
+// -----------------------------------------------------------------------------
+
+function parseVehicleData(csvData) {
+	csv2geojson.csv2geojson(csvData, {
+		latfield: 'latitude',
+		lonfield: 'longitude',
+		delimiter: ';'
+	}, function(err, data) {
+		vehicleData = data;
+		initMap();
+	});
+}
+
+// -----------------------------------------------------------------------------
+
+function start() {
+	mapboxgl.accessToken = 'pk.eyJ1IjoidHVyc2ljcyIsImEiOiJjajBoN3hzZGwwMDJsMnF0YW96Y2l3OGk2In0._5BdojVYvNuR6x4fQNYZrA';
+	config = {
+		speed: 200,
+		run: 'seconds', // 'loop' 'live'
+		showLiveHourOffset: 5,
+		runClock: 0,
+		runClockStart: 0,
+		runClockStop: 0
+	};
+
+	map = new mapboxgl.Map({
+		container: 'mapContainer',
+    	style: 'mapbox://styles/mapbox/streets-v9',
+		center: [ 13.3572122319, 52.4821629317],
+		zoom: 18
+	});
+	mapInfoContainer = document.getElementById('mapInfoContainer');
+
+	$.ajax({
+		type: "GET",
+		url: './data/2018-03-07-vehicle-routes-subset.csv',
+		dataType: "text",
+		success: function(csvData) {
+			parseVehicleData(csvData);
+		}
+	 });
 }
 
 // -----------------------------------------------------------------------------
@@ -768,9 +907,6 @@ $(document).on("pagecreate", "#pageMap", function () {
 
 $(document).on("pageshow", "#pageMap", function () {
 	'use strict';
-
-	// center the city hall
-	initMap('mapContainer', 52.515807, 13.479470, 16);
 
 	$('#autocomplete').val('');
 	$('#receipt .group').on('click', function (e) {
@@ -795,6 +931,14 @@ $(document).on("pageshow", "#pageMap", function () {
 		e.preventDefault();
 		$(this).parent().removeClass('shrink');
 	});
+});
+
+// -----------------------------------------------------------------------------
+
+$(document).ready(function() {
+	'use strict';
+
+	start();
 });
 
 // -----------------------------------------------------------------------------

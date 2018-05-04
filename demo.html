@@ -13,14 +13,14 @@
         #map { position:absolute; top:0; bottom:0; width:100%; }
 
 
-.distance-container {
+.mapInfo-container {
     position: absolute;
     top: 10px;
     left: 10px;
     z-index: 1;
 }
 
-.distance-container > * {
+.mapInfo-container > * {
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
     font-size: 11px;
@@ -29,6 +29,7 @@
     margin: 0;
     padding: 5px 10px;
     border-radius: 3px;
+	text-align: center;
 }
 
 	</style>
@@ -36,37 +37,79 @@
 <body>
 
 <div id='map'></div>
-<div id='distance' class='distance-container'></div>
+<div id='mapInfoContainer' class='mapInfo-container'></div>
 
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoidHVyc2ljcyIsImEiOiJjajBoN3hzZGwwMDJsMnF0YW96Y2l3OGk2In0._5BdojVYvNuR6x4fQNYZrA';
 	config = {
-		speed: 100,
-		showLoop: true,
-		showLiveHourOffset: 5
+		speed: 200,
+		run: 'seconds', // 'loop' 'live'
+		showLiveHourOffset: 5,
+		runClock: 0,
+		runClockStart: 0,
+		runClockStop: 0
 	};
 
 	var map = new mapboxgl.Map({
 		container: 'map',
     	style: 'mapbox://styles/mapbox/streets-v9',
 		center: [ 13.3572122319, 52.4821629317],
-		zoom: 17
+		zoom: 18
 	}),
 		vehicleData = [],
 		vehiclePos = 0,
-		distanceContainer = document.getElementById('distance');
+		mapInfoContainer = document.getElementById('mapInfoContainer');
 
 	function getCurrentPosition() {
-		if (config.showLoop) {
+		if ('loop' === config.run) {
 			++vehiclePos;
 			if(vehicleData.features.length < vehiclePos) {
 				vehiclePos = 0;
 			}
-		} else {
+		} else if ('live' === config.run) {
 			vehiclePos = 0;
 			for(i = 0; i < vehicleData.features.length; ++i) {
 				bus = new Date(vehicleData.features[i].properties.last_seen.substring(0, vehicleData.features[0].properties.last_seen.indexOf('+')));
 				now = new Date();
+
+				if (bus.getHours() < (now.getHours() - config.showLiveHourOffset)) {
+					vehiclePos = i;
+				} else if (bus.getHours() === (now.getHours() - config.showLiveHourOffset)) {
+					if (bus.getMinutes() < now.getMinutes()) {
+						vehiclePos = i;
+					} else if (bus.getMinutes() === now.getMinutes()) {
+						if (bus.getSeconds() < now.getSeconds()) {
+							vehiclePos = i;
+						} else {
+							break;
+						}
+					} else {
+						break;
+					}
+				} else {
+					break;
+				}
+			}
+//			console.log(vehicleData.features[vehiclePos].properties.last_seen);
+		} else if ('seconds' === config.run) {
+			if (0 === config.runClock) {
+				config.runClockStart = new Date(vehicleData.features[0].properties.last_seen.split(' ')[0] + ' 09:33').getTime() / 1000;
+				config.runClockStop = new Date(vehicleData.features[0].properties.last_seen.split(' ')[0] + ' 09:38').getTime() / 1000;
+				config.runClock = config.runClockStart;
+				config.showLiveHourOffset = 0;
+			}
+
+			config.runClock += 1;
+
+			if (config.runClock > config.runClockStop) {
+				config.runClock = config.runClockStart;
+			}
+
+			vehiclePos = 0;
+			for(i = 0; i < vehicleData.features.length; ++i) {
+				bus = new Date(vehicleData.features[i].properties.last_seen.substring(0, vehicleData.features[0].properties.last_seen.indexOf('+')));
+//				now = new Date();
+				now = new Date(config.runClock * 1000);
 
 				if (bus.getHours() < (now.getHours() - config.showLiveHourOffset)) {
 					vehiclePos = i;
@@ -92,7 +135,16 @@
 		var clock = '',
 			bus = new Date(vehicleData.features[vehiclePos].properties.last_seen.substring(0, vehicleData.features[0].properties.last_seen.indexOf('+')));
 
-		clock = ('0' + bus.getHours()).substr(-2) + ':';
+		if ('seconds' === config.run) {
+			bus = new Date(config.runClock * 1000);
+		}
+
+		clock = '';
+		clock += ('0' + bus.getDate()).substr(-2) + '.';
+		clock += ('0' + (bus.getMonth() + 1)).substr(-2) + '.';
+		clock += ('000' + bus.getFullYear()).substr(-4);
+		clock += '<br>';
+		clock += ('0' + bus.getHours()).substr(-2) + ':';
 		clock += ('0' + bus.getMinutes()).substr(-2) + ':';
 		clock += ('0' + bus.getSeconds()).substr(-2);
 
@@ -107,7 +159,7 @@
 	}
 
 	function initInfoslot(text) {
-        distanceContainer.innerHTML = '<div>' + text + '</div>';
+        mapInfoContainer.innerHTML = '<div>' + text + '</div>';
 	}
 
 	function initMap() {
@@ -143,7 +195,7 @@
 		$.ajax({
 			type: "GET",
 //			url: './data/2018-02-14-vehicle-routes.csv',
-		    url: './data/2018-03-07-vehicle-routes.csv',
+		    url: './data/2018-03-07-vehicle-routes-subset.csv',
 			dataType: "text",
 			success: function(csvData) {
 				parseVehicleData(csvData);

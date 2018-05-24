@@ -71,8 +71,8 @@
 		<div id='mapInfoContainer' class='mapInfo-container'></div>
 		<div id="headerBox" class="big">
 			<div class="author">
-				<a href="http://codefor.berlin/" target="_blank" title="Code for Berlin"><img src="/assets/logocfb.png"></a><span> +</span>
-				<a href="http://www.tursics.de/" target="_blank" title="Thomas Tursics"><img src="/assets/logotursics.png"><span> Thomas Tursics</span></a>
+				<a href="http://codefor.berlin/" target="_blank" title="Code for Berlin"><img src="./assets/logocfb.png"></a><span> +</span>
+				<a href="http://www.tursics.de/" target="_blank" title="Thomas Tursics"><img src="./assets/logotursics.png"><span> Thomas Tursics</span></a>
 			</div>
 <!--			<div class="social">
 				<a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fschulsanierung.tursics.de%2F" rel="popup" title="Bei Facebook teilen">teilen<span></span></a>
@@ -81,88 +81,6 @@
 			<h1>Nahverkehr der Zukunft</h1>
 			<div>Die Zukunft testet schon heute in Berlin</div>
 		</div>
-<!--		<div id="searchBox" class="big">
-			<h3>Wie kaputt ist Ihre Schule?</h3>
-			<div class="sample">
-				Zum Beispiel: <a href="#">Obersee-Schule</a>, <a href="#">Lichtenberg</a>
-			</div>
-			<div class="searchInput">
-				<input type="text" name="schools" id="autocomplete" placeholder="Geben Sie einen Schulnamen ein" />
-				<div><i class="fa fa-search" aria-hidden="true"></i></div>
-			</div>
-		</div> -->
-<!--		<div id="receiptBox">
-			<div id="receiptClose"><i class="fa fa-close" aria-hidden="true"></i></div>
-			<div id="receipt" class="normal">
-				<div class="full center bold" id="recSchulname"></div>
-				<div class="full center"><span id="recSchulart"></span> (<span id="recSchulnummer"></span>)</div>
-				<div class="full center" id="recStrasse"></div>
-				<div class="full center"><span id="recPLZ"></span> Berlin</div>
-				<div class="empty"></div>
-				<div class="group groupClosed">
-					<div class="full bold">Gebäude:&nbsp;&nbsp;&nbsp;<span id="recBauwerk"></span></div>
-					<div class="sub"><span class="half">Grundstücksfläche</span><span class="number"><span id="recGrundstuecksflaeche"></span> m²</span></div>
-					<div class="sub"><span class="half">Bruttogeschossfläche</span><span class="number"><span id="recBGF"></span> m²</span></div>
-					<div class="sub"><span class="half">Nettogeschossfläche</span><span class="number"><span id="recNGF"></span> m²</span></div>
-					<div class="sub"><span class="half">Nutzfläche</span><span class="number"><span id="recNF"></span> m²</span></div>
-					<div class="sub"><span class="half">Grundfläche</span><span class="number"><span id="recGF"></span> m²</span></div>
-				</div>
-				<div class="full bold">Priorität: <span id="recPrioritaetGesamt"></span></div>
-				<div class="empty"></div>
-				<div class="full">--------------------------------------------</div>
-				<div class="finished"><i class="fa fa-check-square-o" aria-hidden="true"></i> Sanierung abgeschlossen</div>
-				<div class="group groupClosed">
-					<div><span class="half">Fenster</span><span class="number"><span id="recFensterKosten"></span> EUR</span></div>
-					<div class="sub"><span class="half"><span id="recFensterFlaeche"></span> m² á <span id="recFensterKostenpauschale"></span> €/m²</span><span class="number"><span id="recFensterKosten_"></span> EUR</span></div>
-					<div class="sub"><span class="half">Sanierung notwendig</span><span class="boolean"><span id="recSanierungFensterNotwendig"></span></span></div>
-				</div>
-				<div class="group groupClosed">
-					<div><span class="half">Fassade</span><span class="number"><span id="recFassadenKosten"></span> EUR</span></div>
-					<div class="sub"><span class="full"><span id="recGebaeudeHoeheInM"></span> m hoch x <span id="recGebaeudeUmfangInMAusConject"></span> m Umfang</span></div>
-					<div class="sub"><span class="full">&nbsp;&nbsp;(<span id="recFassadenFlaeche"></span> m² mit Fenster</span>)</div>
-					<div class="sub"><span class="full">&nbsp;&nbsp;(<span id="recFassadenFlaecheOhneFenster_"></span> m² ohne Fenster</span>)</div>
-					<div class="sub"><span class="half"><span id="recFassadenFlaecheOhneFenster"></span> m² á <span id="recFassadenKostenpauschale"></span> €/m²</span><span class="number"><span id="recFassadenKosten_"></span> EUR</span></div>
-					<div class="sub"><span class="half">Sanierung notwendig</span><span class="boolean"><span id="recSanierungFassadenNotwendig"></span></span></div>
-				</div>
-				<div class="group groupClosed">
-					<div><span class="half">Dach (<span id="recDachart"></span>)</span><span class="number"><span id="recDachKosten"></span> EUR</span></div>
-					<div class="sub"><span class="half"><span id="recDachflaeche"></span> m² á <span id="recDachKostenpauschale"></span> €/m²</span><span class="number"><span id="recDachKosten_"></span> EUR</span></div>
-					<div class="sub"><span class="half">Sanierung notwendig</span><span class="boolean"><span id="recSanierungDachNotwendig"></span></span></div>
-				</div>
-				<div class="group groupClosed">
-					<div><span class="half">Barrierefreiheit</span><span class="number"><span id="recZwischensummeBarrierefreiheitKosten"></span> EUR</span></div>
-					<div class="sub"><span class="half">Aufzug</span><span class="number"><span id="recAufzugKosten"></span> EUR</span></div>
-					<div class="sub"><span class="half"><span id="recRampeAnzahl"></span>x Rampe</span><span class="number"><span id="recRampeKosten"></span> EUR</span></div>
-					<div class="sub"><span class="half"><span id="recEingangAnzahl"></span>x Eingang</span><span class="number"><span id="recEingangKosten"></span> EUR</span></div>
-					<div class="sub"><span class="half"><span id="recBWCAnzahl"></span>x barrierefreie Toilette</span><span class="number"><span id="recBWCKosten"></span> EUR</span></div>
-					<div class="sub"><span class="half">Türbreiten anpassen</span><span class="number"><span id="recTuerenKosten"></span> EUR</span></div>
-					<div class="sub"><span class="half">Sanierung Türen notwendig</span><span class="boolean"><span id="recSanierungTuerbreitenNotwendig"></span></span></div>
-				</div>
-				<div><span class="half">Zweiter Rettungsweg</span><span class="number"><span id="reczweiterRettungswegKosten"></span> EUR</span></div>
-				<div class="group groupClosed">
-					<div><span class="half">Räume</span><span class="number"><span id="recRaeumeKosten"></span> EUR</span></div>
-					<div class="sub"><span class="half"><span id="recRaeumeNutzflaecheBGF"></span> m² á <span id="recRaeumeKostenpauschale"></span> €/m²</span><span class="number"><span id="recRaeumeKosten_"></span> EUR</span></div>
-					<div class="sub"><span class="half">Sanierung notwendig</span><span class="boolean"><span id="recSanierungRaeumeNotwendig"></span></span></div>
-				</div>
-				<div class="group groupClosed">
-					<div><span class="half">Sanitär</span><span class="number"><span id="recSanitaerKosten"></span> EUR</span></div>
-					<div class="sub"><span class="half"><span id="recSanitaerflaeche"></span> m² Sanitärräume</div>
-					<div class="sub"><span class="half"><span id="recbereitsSanierteFlaecheInProzent"></span>% im Jahr <span id="recSanitaerSanierungsjahr"></span> saniert</div>
-					<div class="sub"><span class="half">noch zu sanieren: <span id="recFlaecheNichtSaniert"></span> m²</div>
-				</div>
-				<div><span class="half">Sporthalle</span><span class="number"><span id="recBaukosten"></span> EUR</span></div>
-				<div><span class="half">Außenanlagen</span><span class="number"><span id="recAussenanlagen">-</span> EUR</span></div>
-				<div class="full">--------------------------------------------</div>
-				<div><span class="half">SUMME</span><span class="number"><span id="recGebaeudeGesamt"></span> EUR</span></div>
-				<div class="full">============================================</div>
-				<div class="empty"></div>
-				<div class="full" id="recNow_"></div>
-				<div class="empty"></div>
-				<div class="full center">Vielen Dank für Ihren Einkauf!</div>
-				<div class="full center">Sanieren Sie bald wieder</div>
-			</div>
-			<div id="receiptInfo"><i class="fa fa-info-circle" aria-hidden="true"></i> Noch mehr Informationen erscheinen, wenn sie auf die einzelnen Zeilen klicken.</div>
-		</div> -->
 		<div id="scrollDownPane">
 			<a href="#pageStory"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a>
 		</div>
@@ -173,12 +91,22 @@
 				Auf dem EUREF-Campus testen die BVG und Deutsche Bahn schon seit ein paar Monaten einen autonom fahrenden Bus.
 			</div>
 			<div>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </div>
+
+			<div class="embedImage">
+				<iframe width="736" height="414" src="https://www.youtube.com/embed/lvzPxfMoH8c?rel=0&autoplay=1&loop=1&playlist=lvzPxfMoH8c&theme=light&color=white&autohide=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+				<div>Eine Fahrt mit Olli</div>
+			</div>
+			
 			<div>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. </div>
 			<div class="embedImage">
-				<img src="assets/OpenOlli_Hackathon_hackathon_serif.png" alt="Open Olli">
+				<img src="assets/IMG_20180504_1510352.jpg" alt="Open Olli">
 				<div>Open Olli</div>
 			</div>
 			<div>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. </div>
+			<div class="embedImage">
+				<img src="assets/IMG_20180504_1511536-panorama.jpg" alt="Open Olli">
+				<div>Im Olli</div>
+			</div>
 			<div>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </div>
 			<div>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. </div>
 			<div class="embedImage">
@@ -200,100 +128,16 @@
 				<div>Volocopter</div>
 			</div>
 			<div>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. </div>
-			<div>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </div>
-			<div>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. </div>
-			<div class="embedPrinterLabel">
-				<h3>Die teuersten Lichtenberger...</h3>
-				<div class="buttons">
-					<a
-					id="school" href="#">Schulen</a><a
-					id="sport" href="#">Sporthallen</a><a
-					id="room" href="#">Räume</a><a
-					id="outdoor" href="#">Außenanlagen</a><a
-					id="sanitary" href="#">Toiletten</a>
-				</div>
-				<div class="printerLabel canvas"></div>
-			</div>
-			<div>
-				Die übrigen Bereiche von Fassade, Fenster und Dach bis hin zu den sanitären Einrichtungen tauchen beim Gebäudescan mit Werten zwischen 1 und 4 Prozent auf.
-				Für die Sanierung der Sanitäranlagen sind z.B. nur 6,8 Millionen Euro vorgesehen (2 Prozent).
-				Einer der Gründe ist, dass in den letzten 25 Jahren alle Toilettenbereiche bereits einmal saniert und die Rohre ausgewechselt wurden.
-			</div>
-			<div class="embedTwitter">
-				<blockquote class="twitter-tweet" data-lang="de"><p lang="de" dir="ltr">Vor der Einschulung die Eltern noch den Klassenraum renovieren lassen, weil er in desolatem Zustand ist. <a href="https://twitter.com/hashtag/ditisBerlin?src=hash">#ditisBerlin</a></p>&mdash; Sebastian Fiebrig (@saumselig) <a href="https://twitter.com/saumselig/status/770872150706233344">31. August 2016</a></blockquote><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-			</div>
-			<div>
-				Mit ein wenig Farbe und dem Engagement der Eltern lässt sich das Problem nicht lösen.
-				Berlin müsste für jeden der <a href="https://www.berlin.de/sen/bjw/service/presse/pressearchiv-2016/pressemitteilung.513455.php" target="_blank">428.550 Schülerinnen und Schüler</a> über 11.000 Euro in die Hand nehmen, um den Sanierungsstau aufzulösen.
-				Hier sind das Land und die Bezirke gefordert.
-				Doch: <a href="http://www.morgenpost.de/berlin/article207808669/SPD-und-CDU-wollen-Berlins-Schulen-sanieren.html" target="_blank">„nur Lichtenberg gab anteilig mehr für die Schulsanierung aus, als sie an Schulgebäuden besitzen.“</a>
-			</div>
-			<div>
-				In den letzten Jahren hat das Land mehrere Hilfsprogramme aufgelegt.
-				So fließen dieses Jahr aus dem Schulanlagensanierungsprogramm 71,3 Millionen Euro in die Substanzerhaltung der Schulen.
-				Weitere 12 Millionen Euro stehen für die 12 Bezirke aus dem Sanitärsanierungsprogramm bereit.
-				Das ist viel Geld - allerdings würde es 58 Jahre dauern, würde man mit Hilfe beider Programme die 4,9 Milliarden Euro bezahlen wollen.
-			</div>
-			<div class="embedImage">
-				<img src="/assets/gmeinergs.jpg" alt="Die Hermann-Gmeiner-Schule wird derzeit saniert, September 2016">
-				<div>Die Hermann-Gmeiner-Schule wird derzeit saniert. Vor einigen Jahren sah sie noch wie <a href="http://www.berliner-kurier.de/berlin/kiez---stadt/bruchbude-die-schul-schande-von-lichtenberg-5411764" target="_blank">eine „Bruchbude“</a> aus.</div>
-			</div>
-			<div>
-				Bereits heute werden die Schulplätze knapp und in den nächsten Jahren soll es in der wachsenden Stadt noch mehr Schüler geben.
-				Dringend braucht es neben der Sanierung vorhandener auch den Bau neuer Schulgebäude.
-				In der Investitionsplanung sind bereits mehrere neue Schulen vorgesehen.
-				Um kurzfristig mehr Klassenräume einzurichten zu können, werden modulare Ergänzungsbauten (MEB) errichtet.
-				In diesem Jahr sind hierfür 59 Millionen Euro eingeplant.
-			</div>
-			<div>
-				Mit der notwendigen Sanierung der vorhandenen Schulgebäude und den dringend benötigten neuen Bauten haben Berlin und die Bezirke in den nächsten Jahren ein Mammutprogramm zu stemmen.
-			</div>
 			<div class="embedInfo">
-				<h3>Was die Anwendung zeigt</h3>
-				<div>
-					Die Anwendung zeigt das Ergebnis des Gebäudescans, also der gemeldete Sanierungsbedarf bei Schulgebäuden (Stand: 30.06.2016).
-					Die Daten stammen von der <a href="mailto:Beate.Stoffers@SenBJW.berlin.de">Senatsverwaltung für Bildung, Jugend und Wissenschaft</a>, von der sie auch derzeit einer Plausibilitätsprüfung unterzogen werden.
-					Detaillierte Daten liegen nur aus Lichtenberg vor - diese werden als gemeldeter Bedarf angesehen (und dienen der Senatsverwaltung als Arbeitsgrundlage (daher sind auch alle Angaben ohne Haftung auf Vollständigkeit)).
-				</div>
-				<div>
-					Die Längen- und Flächenangaben (z.B. Fassadenlänge, Dachfläche) scheinen sehr präzise aus einem anderen IT-System importiert worden zu sein.
-					Zusammen mit den angenommenen Grundpreisen pro Quadratmeter ergeben sich sehr genaue Teilsummen, die in den Daten aber auf 1.000er gerundet wurden.
-					Hier ergeben sich minimale Rundungsunterschiede.
-				</div>
-				<div>
-					Der Sanierungsbedarf der Sporthallen wurde nicht einzeln berechnet, sondern pauschal nach deren Größe bestimmt.
-					Die Kosten für die Außenanlagen wurden nach Schulhof und Sportplatz getrennt erhoben.
-					In der vorliegenden Tabelle fehlen allerdings die Spalten für Schulhof, Sportplatz und Sporthallen.
-					Summiert man alle vorhandenen Spalten auf, so ergeben sich in einigen Zeilen Differenzen.
-					Diese Differenzen wurden den Sporthallen und Außenanlagen händisch zugeordnet.
-				</div>
-				<div>
-					Zur Bestimmung der Kosten für die Räume wurde die Bruttogeschossfläche (Fläche aller Etagen des Gebäudes) als Rechnungsgrundlage genommen.
-					Es befindet sich in den Daten noch eine zweite (nicht weiter genutzte) Berechnung der Kosten auf Grundlage der Nutzfläche ohne Sanitär (also alle Räume ohne Toiletten, ohne Flure und ohne Treppenhaus).
-				</div>
-				<div class="showMore"><a href="#">Weiter lesen</a></div>
-			</div>
-			<div class="embedInfo">
-				<h3>Über den Autor</h3>
-				<div>
-					<a href="http://www.tursics.de/" target="_blank">Thomas Tursics</a> ist seit fünf Jahren Elternsprecher in der Klasse seines Sohnes in einer Lichtenberger Grundschule.
-					In den schulinternen und bezirklichen Gremien, sowie im Landeselternausschuss vertritt er die Interessen der Eltern.
-				</div>
-				<div>
-					Seine Freizeit nutzt er, um datengetriebene Civic-Tech-Projekte entstehen zu lassen.
-					So wie dieses hier.
-					Weitere Projekte entstehen wöchentlich bei <a href="http://codefor.de/berlin/" target="_blank">Code for Germany</a>.
-				</div>
-				<div class="showMore"><a href="#">Weiter lesen</a></div>
 			</div>
 			<div class="embedCredits">
-				Die Rohdaten zu diesem Artikel können Sie <a href="https://docs.google.com/spreadsheets/d/1RCQjdI2feFJHHFOoIYTDSB68rpUlhjqoEUc-xNOPK-Y/edit?usp=sharing" target="_blank">hier ansehen</a> oder <a href="https://github.com/tursics/schulsanierung/blob/master/data/rowdata.csv" target="_blank">hier ansehen</a> und herunterladen.
+				Die Rohdaten zu diesem Artikel können Sie <a href="https://hackathon.innoz.de/data" target="_blank">hier ansehen</a> und herunterladen.
 				Haben Sie eine Anmerkung oder einen Fehler entdeckt, dann freue ich mich über <a href="mailto:thomas@tursics.de">Ihre Mail</a>.
 				Weitere Daten-Projekte finden Sie in <a href="http://www.tursics.de/projects/" target="_blank">dieser Übersicht</a>.
 			</div>
 			<div class="embedAuthor">
 				Von <a href="https://twitter.com/tursics/" target="_blank">Thomas Tursics</a><br>
-				Made with <i class="fa fa-heart" aria-hidden="true"></i> + <a href="https://github.com/tursics/schulsanierung" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a> in Berlin, 13.09.2016
+				Made with <i class="fa fa-heart" aria-hidden="true"></i> + <a href="https://github.com/tursics/schulsanierung" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a> in Berlin, 04.05.2018
 			</div>
 		</div>
 	</div>
